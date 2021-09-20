@@ -23,7 +23,8 @@ canvas {
     <div id="g">g</div>
     <div id="h">h</div>
     <div id="i">i</div>
-    <canvas class="canvas" id="canvas" width="600" height="600"></canvas>
+    <canvas class="canvas" id="canvas" width="50" height="50"></canvas>
+    <pre id="result"></pre>
     <script>
 
 //
@@ -43,6 +44,8 @@ const SingleTouchFromMouse = class {
 }
 const SingleTouchFromTouch = class {}
 
+const result = document.getElementById('result')
+
 const mouse = {
   target: null,
   handleEvent(event) {
@@ -50,23 +53,22 @@ const mouse = {
     const type = event.type
     //if (button) return
     if (type === 'drag') {
-      console.log('drag', button)
+      result.innerText += 'drag\n'
     }
     if (type === 'dragend') {
-      console.log('dragend', button)
+      result.innerText += 'dragend\n'
     }
     if (type === 'dragstart') {
-      console.log('dragstart', button)
+      result.innerText += 'dragstart\n'
     }
     if (type === 'mousedown') {
-      this.target && console.log('cancel', button)
-      ;(this.target = event.target) && console.log('start', button)
+      (this.target = event.target) && (result.innerText += 'mousedown\n')
     }
     if (type === 'mousemove') {
-      this.target && console.log('move', button, event.clientX, event.clientY)
+      this.target && (result.innerText += 'mousemove\n')
     }
     if (type === 'mouseup') {
-      this.target && console.log('end', button)
+      this.target && (result.innerText += 'mouseup\n')
       this.target = null
     }
   }
@@ -85,18 +87,17 @@ const touch = {
     const type = event.type
     //if (button) return
     if (type === 'touchstart') {
-      this.target && console.log('cancel', button)
-      ;(this.target = event.target) && console.log('start', button)
+      ;(this.target = event.target) && (result.innerText += 'touchstart\n')
     }
     if (type === 'touchmove') {
-      this.target && console.log('move', button, event.clientX, event.clientY)
+      this.target && (result.innerText += 'touchmove\n')
     }
     if (type === 'touchend') {
-      this.target && console.log('end', button)
+      this.target && (result.innerText += 'touchend\n')
       this.target = null
     }
     if (type === 'touchcancel') {
-      this.target && console.log('cancel', button)
+      this.target && (result.innerText += 'touchcancel\n')
       this.target = null
     }
   }
