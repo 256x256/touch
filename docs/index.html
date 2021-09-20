@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
+    <title></title>
+    <style>
+div {
+  background-color: yellow;
+}
+canvas {
+  background-color: aqua;
+}
+    </style>
+  </head>
+  <body>
+    <div id="a">a</div>
+    <div id="b">b</div>
+    <div id="c">c</div>
+    <div id="d">d</div>
+    <div id="e">e</div>
+    <div id="f">f</div>
+    <div id="g">g</div>
+    <div id="h">h</div>
+    <div id="i">i</div>
+    <canvas class="canvas" id="canvas" width="600" height="600"></canvas>
+    <script>
+
+//
+
+const SingleTouchFromMouse = class {
+  #typedUniqueValues
+  constructor() {
+    //
+  }
+  add(target) {
+    return
+  }
+  clear() {}
+  remove(targetOr) {}
+  start() {}
+  stop() {}
+}
+const SingleTouchFromTouch = class {}
+
+const mouse = {
+  target: null,
+  handleEvent(event) {
+    const button = event.button
+    const type = event.type
+    //if (button) return
+    if (type === 'drag') {
+      console.log('drag', button)
+    }
+    if (type === 'dragend') {
+      console.log('dragend', button)
+    }
+    if (type === 'dragstart') {
+      console.log('dragstart', button)
+    }
+    if (type === 'mousedown') {
+      this.target && console.log('cancel', button)
+      ;(this.target = event.target) && console.log('start', button)
+    }
+    if (type === 'mousemove') {
+      this.target && console.log('move', button, event.clientX, event.clientY)
+    }
+    if (type === 'mouseup') {
+      this.target && console.log('end', button)
+      this.target = null
+    }
+  }
+}
+addEventListener('drag', mouse)
+addEventListener('dragend', mouse)
+addEventListener('dragstart', mouse)
+addEventListener('mousedown', mouse)
+addEventListener('mousemove', mouse)
+addEventListener('mouseup', mouse)
+
+const touch = {
+  target: null,
+  handleEvent(event) {
+    const button = event.button
+    const type = event.type
+    //if (button) return
+    if (type === 'touchstart') {
+      this.target && console.log('cancel', button)
+      ;(this.target = event.target) && console.log('start', button)
+    }
+    if (type === 'touchmove') {
+      this.target && console.log('move', button, event.clientX, event.clientY)
+    }
+    if (type === 'touchend') {
+      this.target && console.log('end', button)
+      this.target = null
+    }
+    if (type === 'touchcancel') {
+      this.target && console.log('cancel', button)
+      this.target = null
+    }
+  }
+}
+addEventListener('touchcancel', touch)
+addEventListener('touchend', touch)
+addEventListener('touchmove', touch)
+addEventListener('touchstart', touch)
+
+
+
+//let target = null
+//addEventListener('mousedown', event => { target = event.target, console.log('start') })
+//addEventListener('mousemove', event => { target && console.log('move') })
+//addEventListener('mouseup', event => { target && console.log('end'), target = null })
+
+//
+
+    </script>
+  </body>
+</html>
